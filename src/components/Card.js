@@ -1,13 +1,19 @@
 import React, {Component} from 'react';
+import "../styles/Card.css";
+import { connect } from "react-redux";
 
 class Card extends Component {
     render() {
+        const { card } = this.props;
         return (
-            <div>
-
+            <div className={'Card'}>
+                {card.text}
             </div>
         );
     }
 }
 
-export default Card;
+const mapStateToProps = (state, ownProps) => ({
+    card: state.cardsById[ownProps.cardId]
+})
+export default connect(mapStateToProps)(Card);

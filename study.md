@@ -37,13 +37,14 @@
     1. 가장 큰 특징은 단방향 데이터 흐름
     데이터 흐름은 항상 Dispatcher에서 Store로, Store에서 View로, View는 Action을 통해 다시 Dispatcher로 데이터가 흐르게 됩니다. 이런 단방향 데이터 흐름은 데이터 변화를 휠씬 예측하기 쉽게 만듭니다. Flux를 크게 Dispatcher, Store, View 세 부분으로 구성됩니다.
 - [더비노트](https://beomy.tistory.com/93?category=676748)
-- mapStateToProps = (state, ownProps) => ({mapStateToProps에서는 두번째 파라미터 ownProps를 받아올 수 있는데요 이 파라미터는 생략해도 되는 파라미터입니다. 이 값은 우리가 컨테이너 컴포넌트를 렌더링 할때 직접 넣어주는 props 를 가르킵니다. 예를 들어서
-                                           
-                                           <CounterContainer myValue={1} /> 이라고 하면 { myValue: 1 } 값이 ownProps가 되죠.
-                                           
-                                           이 두번째 파라미터는 다음과 같은 용도로 활용 할 수 있습니다.
-                                           
-                                           const mapStateToProps = (state, ownProps) => ({
-                                             todo: state.todos[ownProps.id]
-                                           })
-                                           리덕스에서 어떤 상태를 조회 할 지 설정하는 과정에서 현재 받아온 props에 따라 다른 상태를 조회 할 수 있죠.
+- mapStateToProps = (state, ownProps) => 
+({mapStateToProps에서는 두번째 파라미터 ownProps를 받아올 수 있는데요 
+이 파라미터는 생략해도 되는 파라미터입니다. 
+이 값은 우리가 컨테이너 컴포넌트를 렌더링 할때 직접 넣어주는 props 를 가르킵니다. 예를 들어서
+<CounterContainer myValue={1} /> 이라고 하면 { myValue: 1 } 값이 ownProps가 되죠.
+이 두번째 파라미터는 다음과 같은 용도로 활용 할 수 있습니다.                                           
+ const mapStateToProps = (state, ownProps) => ({
+      todo: state.todos[ownProps.id]
+ })
+ 리덕스에서 어떤 상태를 조회 할 지 설정하는 과정에서 현재 받아온 props에 따라 다른 상태를 조회 할 수 있죠.
+ => 더 자식으로 들어가는것 state.todos.id(id 마다 다른 수)
