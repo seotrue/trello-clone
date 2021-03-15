@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TextareaAutosize from "react-textarea-autosize";
+import EditButtons from "./EditButtons";
 
 class CardEditor extends Component {
     state ={
@@ -21,8 +22,8 @@ class CardEditor extends Component {
     };
 
     render() {
-        const { text } = this.props;
-        const { onSave, onCancel, adding } = this.state;
+        const { text } = this.state;
+        const { onSave, onCancel, adding, onDelete } = this.props;
         return (
             <div className={'Edit-Card'}>
                 <div className={'Card'}>
@@ -35,6 +36,12 @@ class CardEditor extends Component {
                         onKeyDown={this.onEnter}
                         />
                 </div>
+                <EditButtons
+                    handleSave={() => onSave(text)}
+                    saveLabel={adding ? 'Add card' : 'Save'}
+                    handleDelete={onDelete}
+                    handleCancel={onCancel}
+                    />
             </div>
         );
     }

@@ -51,7 +51,10 @@ const listsById = (state = {}, action) => {
       const { listId, cardId } = action.payload;
       return {
         ...state,
-        [listId]: { ...state[listId], cards: [...state[listId].cards, cardId] }
+        [listId]: {
+          ...state[listId],
+          cards: [...state[listId].cards, cardId]
+        }
       };
     }
     case "MOVE_CARD": {
