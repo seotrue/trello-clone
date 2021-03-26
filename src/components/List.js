@@ -6,12 +6,30 @@ import CardEditor from "./CardEditor";
 import shortid from 'shortid';
 
 class List extends Component {
-    state={
-        addingCard: false
+    state = {
+        addingCard: false,
+        editingTitle: false,
+        title: this.props.list.title
     };
     toggleEditingTitle = () => {
-
+        this.setState({ editingTitle: !this.state.editingTitle });
     };
+
+    handleChangeTitle = e => this.setState({ title: e.target.value });
+
+    editListTitle = async () => {
+        const { listId, dispatch } = this.props;
+        const { title } = this.state;
+
+        this.toggleEditingTitle();
+
+        dispatch({
+            type: "CHANGE_LIST_TITLE",
+            payload: { listId, listTitle: title }
+        });
+    };
+
+    delec
 
     toggleAddingCard = () => {
         this.setState({addingCard: !this.state.addingCard})
