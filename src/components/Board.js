@@ -3,15 +3,19 @@ import { connect } from 'react-redux';
 import '../styles/Board.css';
 import List from './List';
 import AddList from "./AddList";
+import { DragDropContext, Draggable } from "react-beautiful-dnd";
 
 class Board extends Component {
     state = {
       addingList: false
     };
 
+    handleDragEnd = ({ source, destination, type }) => {
+
+    };
+
     toggleAddingList = () => {
       this.setState({ addingList: !this.state.addingList });
-
     };
     render() {
         const { board } = this.props;

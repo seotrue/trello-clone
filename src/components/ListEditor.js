@@ -5,8 +5,9 @@ import TextareaAutosize from "react-textarea-autosize";
 class ListEditor extends Component {
     ref = React.createRef();
 
+
     onEnter = e => {
-        if (e.keyCpde === 13) {
+        if (e.keyCode === 13) {
             e.preventDefault();
             this.props.saveList();
         }
@@ -34,7 +35,7 @@ class ListEditor extends Component {
 
 
     render() {
-        const { title, handChangeTitle } = this.props;
+        const { title, handChangeTitle, deleteList } = this.props;
         return (
             <div className={'List-Title-Edit'} ref={this.ref}>
               <TextareaAutosize autoFocus
@@ -44,6 +45,7 @@ class ListEditor extends Component {
                 onChange={handChangeTitle}
                 onKeyDown={this.onEnter}
               />
+                {deleteList && <ion-icon name="trash" onClick={deleteList} />}
             </div>
         );
     }

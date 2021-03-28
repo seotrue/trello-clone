@@ -15,13 +15,11 @@ class AddList extends Component {
         const { dispatch } = this.props;
 
         this.props.toggleAddingList();
+
         dispatch({
-            type:'ADD_LIST',
-            payload:{
-                listId:shortid.generate(),
-                listTitle: title
-            }
-        })
+            type: "ADD_LIST",
+            payload: { listId: shortid.generate(), listTitle: title }
+        });
     };
     handleChangeTitle = e => {
         this.setState({title: e.target.value})
@@ -47,5 +45,7 @@ class AddList extends Component {
         );
     }
 }
+const mapStateToProps = (state, ownProps) => ({
 
-export default AddList;
+});
+export default connect(mapStateToProps)(AddList)

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Card from "./Card";
 import CardEditor from "./CardEditor";
 import shortid from 'shortid';
+import ListEditor from "./ListEditor";
 
 class List extends Component {
     state = {
@@ -15,7 +16,9 @@ class List extends Component {
         this.setState({ editingTitle: !this.state.editingTitle });
     };
 
-    handleChangeTitle = e => this.setState({ title: e.target.value });
+    handleChangeTitle = e => {
+        this.setState({ title: e.target.value })
+    }
 
     editListTitle = async () => {
         const { listId, dispatch } = this.props;
@@ -29,7 +32,14 @@ class List extends Component {
         });
     };
 
-    delec
+    deleteList = async () => {
+        const { listId, list, dispatch } = this.props;
+
+        dispatch({
+            type: "DELETE_LIST",
+            payload: { listId, cards: list.cards }
+        });
+    };
 
     toggleAddingCard = () => {
         this.setState({addingCard: !this.state.addingCard})
@@ -37,7 +47,7 @@ class List extends Component {
 
     addCard = async cardText => {
         const { listId, dispatch } = this.props;
-
+        console.log(dispatch,'dispatch')
         this.toggleAddingCard();
 
         const cardId = shortid.generate();
@@ -54,7 +64,7 @@ class List extends Component {
 
     render() {
         const { list } = this.props;
-        const { addingCard } = this.state;
+        const { editingTitle, addingCard, title } = this.state;
 
         return (
             <div className={'List'}>
@@ -86,6 +96,21 @@ class List extends Component {
                             </div>
                         )
                 }
+
+                { editingTitle ? (
+                    <ListEditor
+                        list={list}
+                        title={title}
+                        handleChangeTitle={this.handleChangeTitle}
+                        saveList={this.editListTitle}
+                        onClickOutside={this.editListTitle}
+                        deleteList={this.deleteList}
+                    />
+                ) : (
+                    <div className="List-Title" onClick={this.toggleEditingTitle}>
+                        {list.title}
+                    </div>
+                )}
             </div>
         );
     }
