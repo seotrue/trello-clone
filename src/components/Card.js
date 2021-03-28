@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import "../styles/Card.css";
 import { connect } from "react-redux";
 import CardEditor from "./CardEditor";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 
 class Card extends Component {
     state = {
@@ -42,25 +43,32 @@ class Card extends Component {
     };
 
     render() {
-        const { card } = this.props; // 스토어에서 갖고 옴
+        const { card, index } = this.props; // 스토어에서 갖고 옴
         const { hover, editing } = this.state;
 
         console.log(card,'card')
         if (!editing) {
             return(
-                <div className='Card'
-                     onMouseEnter={this.startHover}
-                     onMouseLeave={this.endHover}
-                     >
-                    { hover &&
-                    <div className="Card-Icons">
-                        <div className="Card-Icon" onClick={this.startEditing}>
-                            <ion-icon name="create" />
+                <Draggable draggableId={card._id} index={index}>
+                    {(provided, snapshot) => (
+                        <div className='Card'
+                             ref={provided.innerRef}
+                             {...provided.draggableProps}
+                             {...provided.dragHandleProps}
+                             onMouseEnter={this.startHover}
+                             onMouseLeave={this.endHover}
+                             >
+                            { hover &&
+                            <div className="Card-Icons">
+                                <div className="Card-Icon" onClick={this.startEditing}>
+                                    <ion-icon name="create" />
+                                </div>
+                            </div>
+                            }
+                            { card.text }
                         </div>
-                    </div>
-                    }
-                    { card.text }
-                </div>
+                    )}
+                </Draggable>
             )
         } else {
             // 수정 중일때
